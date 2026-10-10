@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Escape Room</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 350px;
+            padding: 30px;
+
+            background: #1e1e1e;
+            border-radius: 15px;
+
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            border: none;
+            border-radius: 8px;
+
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #00c853;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00a844;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #00e676;
+        }
+
+        .error {
+            color: #ff5252;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🔐 Escape Room</h1>
+
+        <p>Enter your Team ID and secret key</p>
+
+        <input
+            type="text"
+            id="teamId"
+            placeholder="Team ID (Example: A01)"
+        >
+
+        <input
+            type="text"
+            id="secretKey"
+            placeholder="4-Digit Key"
+            maxlength="4"
+        >
+
+        <button onclick="checkKey()">
+            ESCAPE
+        </button>
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <script>
+
+        // Team ID → Secret Key
+
+        const teams = {
+            "A01": "487",
+            "B02": "9136",
+            "C03": "2754",
+            "D04": "6381",
+            "E05": "1049"
+        };
+
+
+        function checkKey() {
+
+            const teamId = document
+                .getElementById("teamId")
+                .value
+                .trim()
+                .toUpperCase();
+
+            const secretKey = document
+                .getElementById("secretKey")
+                .value
+                .trim();
+
+            const message = document.getElementById("message");
+
+
+            // Check if team exists
+
+            if (!teams[teamId]) {
+
+                message.textContent = "❌ Invalid Team ID";
+                message.className = "error";
+
+                return;
+            }
+
+
+            // Check team key
+
+            if (teams[teamId] === secretKey) {
+
+                message.textContent =
+                    "🎉 CONGRATULATIONS! " +
+                    teamId +
+                    " — YOU WON! 🔓";
+
+                message.className = "success";
+
+            } else {
+
+                message.textContent =
+                    "❌ Wrong key! Try again.";
+
+                message.className = "error";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
